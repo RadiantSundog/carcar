@@ -2,8 +2,8 @@
 
 Team:
 
-* Person 1 - Which microservice?
-* Person 2 - Which microservice?
+* Person 1 Alex Levero-Sales
+* Person 2 - Brian Johnson-Services
 
 ## Design
 
