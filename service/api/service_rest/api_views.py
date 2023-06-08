@@ -128,6 +128,7 @@ def api_list_appointment(request):
                 status=400,
             )
         appointment = Appointment.objects.create(**content)
+        setattr(appointment, "status", "created")
         return JsonResponse(
             appointment,
             encoder=AppointmentEncoder,

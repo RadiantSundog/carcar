@@ -17,7 +17,6 @@ function AppointmentList() {
   }
 
 
-
     return (
         <>
             <h1>Service Appointments</h1>
@@ -42,7 +41,7 @@ function AppointmentList() {
                       <td>{ appointment.date_time }</td>
                       <td>{ appointment.technician.first_name }</td>
                       <td>{ appointment.reason }</td>
-                      <td><button onClick={() => this.handleClick(appointment.id)} type="button" className="btn btn-danger">Cancel</button></td>
+                      <td><button onClick={() => this.cancelClick(appointment.id)} type="button" className="btn btn-danger">Cancel</button></td>
                       <td><button onClick={() => this.finish(appointment.id)} type="button" className="btn btn-success">Finish</button></td>
                     </tr>
                     );
