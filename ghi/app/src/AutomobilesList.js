@@ -34,9 +34,9 @@ function AutomobilesList() {
                                 <td>{ auto.vin }</td>
                                 <td>{ auto.color }</td>
                                 <td>{ auto.year }</td>
-                                <td>{ auto.vehiclemodel }</td>
-                                <td>{ auto.manufacturer }</td>
-                                <td>{ auto.sold }</td>
+                                <td>{ auto.model.name }</td>
+                                <td>{ auto.model.manufacturer.name }</td>
+                                <td>{ auto.sold.toString() }</td>
                             </tr>
                         );
                     })}

@@ -8,6 +8,7 @@ class AutomobileVOEncoder(ModelEncoder):
     properties = [
         "vin",
         "sold",
+        "id",
     ]
 
 
@@ -17,6 +18,7 @@ class SalespersonEncoder(ModelEncoder):
         "first_name",
         "last_name",
         "employee_id",
+        "id",
     ]
 
 
@@ -27,6 +29,7 @@ class CustomerEncoder(ModelEncoder):
         "last_name",
         "address",
         "phone_number",
+        "id",
     ]
 
 
@@ -37,6 +40,7 @@ class SaleEncoder(ModelEncoder):
         "automobile",
         "salesperson",
         "customer",
+        "id"
     ]
     encoders = {
         "automobile": AutomobileVOEncoder(),

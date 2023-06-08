@@ -33,7 +33,7 @@ function SalesList() {
                                 <td>{ sale.salesperson.exmployee_id }</td>
                                 <td>{ sale.salesperson.first_name + " " + sale.salesperson.last_name }</td>
                                 <td>{ sale.customer.first_name + " " + sale.salesperson.last_name }</td>
-                                <td>{ sale.automobilevo.vin }</td>
+                                <td>{ sale.vin }</td>
                                 <td>{ sale.price }</td>
                             </tr>
                         );

@@ -6,7 +6,7 @@ function AutomobileForm() {
     color: '',
     year: '',
     vin: '',
-    models: '',
+    model_id: '',
   })
 
   const fetchData = async () => {
@@ -39,7 +39,7 @@ function AutomobileForm() {
         color: '',
         year: '',
         vin: '',
-        models: '',
+        model_id: '',
       });
     }
   }
@@ -73,7 +73,7 @@ function AutomobileForm() {
               <label htmlFor="vin">VIN</label>
             </div>
             <div className="mb-3">
-              <select onChange={handleFormChange} required name="Model" id="model" className="form-select">
+              <select onChange={handleFormChange} required name="model_id" id="model_id" className="form-select">
                 <option value="">Choose a model</option>
                 {models.map(model => {
                   return (
