@@ -17,11 +17,11 @@ function SalespeopleHistoryList() {
         <>
             <h1>Salesperson History</h1>
             <div className="mb-3">
-                <select required name="Salesperson" id="salesperson" className="form-select">
+                <select required name="salesperson" id="salesperson" className="form-select">
                     <option value="">Choose a salesperson</option>
                     {salespeople.map(salesperson => {
                     return (
-                        <option key={salesperson.id} value={salesperson.id}>{salesperson.name}</option>
+                        <option key={salesperson.id} value={salesperson.id}>{salesperson.first_name + " " + salesperson.last_name}</option>
                     )
                     })}
                 </select>
