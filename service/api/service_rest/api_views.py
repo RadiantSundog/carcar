@@ -5,21 +5,23 @@ from common.json import ModelEncoder
 from .models import AutomobileVO, Technician, Appointment
 
 
-
 class AutomobileVOListEncoder(ModelEncoder):
     model = AutomobileVO
-    properties = ["vin", "sold"]
+    properties = [
+        "vin",
+        "sold",
+        ]
 
 
 class TechnicianEncoder(ModelEncoder):
     model = Technician
     properties = [
         "first_name",
-        "id",
         "last_name",
         "employee_id",
-
+        "id",
     ]
+
 
 class AppointmentEncoder(ModelEncoder):
     model = Appointment
@@ -29,13 +31,16 @@ class AppointmentEncoder(ModelEncoder):
         "reason",
         "vin",
         "customer",
+        "status",
+        "technician"
     ]
+    encoders = {
+        "technician": TechnicianEncoder(),
+    }
 
 
 @require_http_methods(["GET", "POST"])
 def api_list_technician(request):
-
-
     if request.method == "GET":
         technicians = Technician.objects.all()
         return JsonResponse(
@@ -44,12 +49,13 @@ def api_list_technician(request):
         )
     else:
         content = json.loads(request.body)
-        technician = technician.objects.create(**content)
+        technicians = Technician.objects.create(**content)
         return JsonResponse(
-            technician,
+            technicians,
             encoder=TechnicianEncoder,
             safe=False,
-    )
+        )
+
 
 @require_http_methods(["DELETE", "GET", "PUT"])
 def api_show_technician(request, pk):
@@ -67,7 +73,7 @@ def api_show_technician(request, pk):
             return response
     elif request.method == "DELETE":
         try:
-            techncian = Technician.objects.get(id=pk)
+            technician = Technician.objects.get(id=pk)
             technician.delete()
             return JsonResponse(
                 technician,
@@ -88,7 +94,7 @@ def api_show_technician(request, pk):
             ]
             for prop in props:
                 if prop in content:
-                    setattr(techncian, prop, content[prop])
+                    setattr(technician, prop, content[prop])
             technician.save()
             return JsonResponse(
                 technician,
@@ -103,8 +109,6 @@ def api_show_technician(request, pk):
 
 @require_http_methods(["GET", "POST"])
 def api_list_appointment(request):
-
-
     if request.method == "GET":
         appointments = Appointment.objects.all()
         return JsonResponse(
@@ -113,12 +117,23 @@ def api_list_appointment(request):
         )
     else:
         content = json.loads(request.body)
-        appointment = appointment.objects.create(**content)
+
+        try:
+            technician_href = content["technician"]
+            technician = Technician.objects.get(id=technician_href)
+            content["technician"] = technician
+        except Technician.DoesNotExist:
+            return JsonResponse(
+                {"message": "Invalid technician id"},
+                status=400,
+            )
+        appointment = Appointment.objects.create(**content)
         return JsonResponse(
             appointment,
             encoder=AppointmentEncoder,
             safe=False,
-    )
+        )
+
 
 @require_http_methods(["DELETE", "GET", "PUT"])
 def api_show_appointment(request, pk):
@@ -143,7 +158,7 @@ def api_show_appointment(request, pk):
                 encoder=AppointmentEncoder,
                 safe=False,
             )
-        except Technician.DoesNotExist:
+        except Appointment.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
     else:  # PUT
         try:
@@ -154,8 +169,7 @@ def api_show_appointment(request, pk):
                 "reason",
                 "vin",
                 "customer",
-                "technician",
-
+                "status",
             ]
             for prop in props:
                 if prop in content:
@@ -170,3 +184,39 @@ def api_show_appointment(request, pk):
             response = JsonResponse({"message": "Does not exist"})
             response.status_code = 404
             return response
+
+
+@require_http_methods(["PUT"])
+def api_cancel_appointment(request, pk):
+
+    try:
+        appointment = Appointment.objects.get(id=pk)
+        setattr(appointment, "status", "canceled")
+        appointment.save()
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentEncoder,
+            safe=False,
+        )
+    except Appointment.DoesNotExist:
+        response = JsonResponse({"message": "Does not exist"})
+        response.status_code = 404
+        return response
+
+
+@require_http_methods(["PUT"])
+def api_finish_appointment(request, pk):
+
+    try:
+        appointment = Appointment.objects.get(id=pk)
+        setattr(appointment, "status", "finished")
+        appointment.save()
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentEncoder,
+            safe=False,
+        )
+    except Appointment.DoesNotExist:
+        response = JsonResponse({"message": "Does not exist"})
+        response.status_code = 404
+        return response

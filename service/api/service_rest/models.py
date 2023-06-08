@@ -1,11 +1,13 @@
 from django.db import models
 from django.db import models
 from django.urls import reverse
+from datetime import datetime
+from django.utils import timezone
 
 
 class AutomobileVO(models.Model):
-    vin = models.CharField(max_length=200)
-    sold = models.CharField(max_length=100, unique=True)
+    vin = models.CharField(max_length=17, unique=True)
+    sold = models.BooleanField(default=False)
 
 
 class Technician(models.Model):
@@ -15,13 +17,13 @@ class Technician(models.Model):
 
 
 class Appointment(models.Model):
-    date_time = models.DateTimeField()
+    date_time = models.CharField(max_length=200)
     reason = models.CharField(max_length=200)
     vin = models.CharField(max_length=200)
     customer = models.CharField(max_length=200)
-
+    status = models.CharField(max_length=200)
     technician = models.ForeignKey(
-        AutomobileVO,
-        related_name="technicians",
+        Technician,
+        related_name="technician",
         on_delete=models.CASCADE,
     )
