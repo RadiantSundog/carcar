@@ -1,47 +1,40 @@
 import React, { useEffect, useState } from 'react';
 
 function SaleForm() {
-  const [vins, setVins] = useState([])
+  const [autos, setAutos] = useState([])
   const [salespeople, setSalespeople] = useState([])
   const [customers, setCustomers] = useState([])
   const [formData, setFormData] = useState({
-    vin: '',
-    salesperson: '',
-    customer: '',
+    automobile_id: '',
+    salesperson_id: '',
+    customer_id: '',
     price: '',
   })
 
-  // const fetchData = async () => {
-  //   const url = 'http://localhost:8100/api/automobiles/';
-  //   const response = await fetch(url);
-  //   if (response.ok) {
-  //     const data = await response.json();
-  //     setVins(data.vins);
-  //   }
-  // }
+  const fetchData = async () => {
+    const url = 'http://localhost:8100/api/automobiles/';
+    const response = await fetch(url);
+    if (response.ok) {
+      const data = await response.json();
+      setAutos(data.autos);
+    }
+    const salespeople_url = 'http://localhost:8090/api/salespeople/';
+    const salespeople_response = await fetch(salespeople_url);
+    if (salespeople_response.ok) {
+      const data = await salespeople_response.json();
+      setSalespeople(data.salespeople);
+    }
+    const customers_url = 'http://localhost:8090/api/customers/';
+    const customers_response = await fetch(customers_url);
+    if (customers_response.ok) {
+      const data = await customers_response.json();
+      setCustomers(data.customers);
+    }
+  }
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
-  // const fetchData = async () => {
-  //   const salespeople_url = 'http://localhost:8090/api/salespeople/';
-  //   const salespeople_response = await fetch(url);
-  //   if (response.ok) {
-  //     const data = await salespeople_response.json();
-  //     setSalespeople(data.salespeople);
-  //   }
-  //   const customers_url = 'http://localhost:8090/api/customers/';
-  //   const customers_response = await fetch(url);
-  //   if (response.ok) {
-  //     const data = await customers_response.json();
-  //     setCustomers(data.customers);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
 
   const handleSubmit = async (event) => {
@@ -61,9 +54,9 @@ function SaleForm() {
 
     if (response.ok) {
       setFormData({
-        vin: '',
-        salesperson: '',
-        customer: '',
+        automobile_id: '',
+        salesperson_id: '',
+        customer_id: '',
         price: '',
       });
     }
@@ -87,33 +80,33 @@ function SaleForm() {
           <form onSubmit={handleSubmit} id="create-sale-form">
 
             <div className="mb-3">
-              <select onChange={handleFormChange} required name="Vin" id="vin" className="form-select">
+              <select onChange={handleFormChange} required name="automobile_id" id="automobile_id" className="form-select">
                 <option value="">Choose an automobile VIN</option>
-                {vins.map(vin => {
+                {autos.map(auto => {
                   return (
-                    <option key={vin.id} value={vin.id}>{vin.vin}</option>
+                    <option key={auto.id} value={auto.id}>{auto.vin}</option>
                   )
                 })}
               </select>
             </div>
 
             <div className="mb-3">
-              <select onChange={handleFormChange} required name="Salesperson" id="salesperson" className="form-select">
+              <select onChange={handleFormChange} required name="salesperson_id" id="salesperson_id" className="form-select">
                 <option value="">Choose a salesperson</option>
                 {salespeople.map(salesperson => {
                   return (
-                    <option key={salesperson.id} value={salesperson.id}>{salesperson.name}</option>
+                    <option key={salesperson.id} value={salesperson.id}>{salesperson.first_name + " " + salesperson.last_name}</option>
                   )
                 })}
               </select>
             </div>
 
             <div className="mb-3">
-              <select onChange={handleFormChange} required name="Customer" id="customer" className="form-select">
+              <select onChange={handleFormChange} required name="customer_id" id="customer_id" className="form-select">
                 <option value="">Choose a customer</option>
                 {customers.map(customer => {
                   return (
-                    <option key={customer.id} value={customer.id}>{customer.name}</option>
+                    <option key={customer.id} value={customer.id}>{customer.first_name + " " + customer.last_name}</option>
                   )
                 })}
               </select>
