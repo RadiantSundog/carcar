@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 function SalespersonForm() {
   const [formData, setFormData] = useState({
     first_name: '',
@@ -19,7 +20,6 @@ function SalespersonForm() {
     };
 
     const response = await fetch(url, fetchConfig);
-
     if (response.ok) {
       setFormData({
         first_name: '',
@@ -49,17 +49,14 @@ function SalespersonForm() {
               <input onChange={handleFormChange} placeholder="First name" required type="text" name="first_name" id="first_name" className="form-control" />
               <label htmlFor="first_name">First name</label>
             </div>
-
             <div className="form-floating mb-3">
               <input onChange={handleFormChange} placeholder="Last name" required type="text" name="last_name" id="last_name" className="form-control" />
               <label htmlFor="last_name">Last name</label>
             </div>
-
             <div className="form-floating mb-3">
               <input onChange={handleFormChange} placeholder="Employee ID" required type="text" name="employee_id" id="employee_id" className="form-control" />
               <label htmlFor="color">Employee ID</label>
             </div>
-
             <button className="btn btn-primary">Create</button>
           </form>
         </div>

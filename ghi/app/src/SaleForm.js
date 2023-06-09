@@ -78,7 +78,6 @@ function SaleForm() {
         <div className="shadow p-4 mt-4">
           <h1>Record a new sale</h1>
           <form onSubmit={handleSubmit} id="create-sale-form">
-
             <div className="mb-3">
               <select onChange={handleFormChange} required name="automobile_id" id="automobile_id" className="form-select">
                 <option value="">Choose an automobile VIN</option>
@@ -89,7 +88,6 @@ function SaleForm() {
                 })}
               </select>
             </div>
-
             <div className="mb-3">
               <select onChange={handleFormChange} required name="salesperson_id" id="salesperson_id" className="form-select">
                 <option value="">Choose a salesperson</option>
@@ -100,7 +98,6 @@ function SaleForm() {
                 })}
               </select>
             </div>
-
             <div className="mb-3">
               <select onChange={handleFormChange} required name="customer_id" id="customer_id" className="form-select">
                 <option value="">Choose a customer</option>
@@ -111,13 +108,11 @@ function SaleForm() {
                 })}
               </select>
             </div>
-
             <div className="form-floating mb-3">
               <input onChange={handleFormChange} placeholder="0" required type="text" name="price" id="price" className="form-control" />
               <label htmlFor="price">Price</label>
             </div>
-
-            <button className="btn btn-primary">Create</button>
+            <button onClick={(e) => vinSold(autos.auto.id)} className="btn btn-primary">Create</button>
           </form>
         </div>
       </div>

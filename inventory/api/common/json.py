@@ -11,6 +11,7 @@ class DateEncoder(JSONEncoder):
         else:
             return super().default(o)
 
+
 class QuerySetEncoder(JSONEncoder):
     def default(self, o):
         if isinstance(o, QuerySet):

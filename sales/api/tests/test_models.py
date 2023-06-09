@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 
+
 class Tests(TestCase):
     def test_automobileVO(self):
         try:
