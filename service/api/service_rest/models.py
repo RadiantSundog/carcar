@@ -19,7 +19,7 @@ class Appointment(models.Model):
     reason = models.CharField(max_length=200)
     vin = models.CharField(max_length=200)
     customer = models.CharField(max_length=200)
-    status = models.CharField(max_length=200)
+    status = models.TextField(default="created")
     technician = models.ForeignKey(
         Technician,
         related_name="technician",
