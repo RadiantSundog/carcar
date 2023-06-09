@@ -3,16 +3,28 @@ import React, { useState, useEffect } from 'react';
 
 function SalespeopleHistoryList() {
     const [salespeople, setSalespeople] = useState([])
-    useEffect(() => {fetchdata()}, [])
+    const [sales, setSales] = useState([])
     const fetchdata = async () => {
-        const response = await fetch('http://localhost:8090/api/salespeople/');
+        const url = 'http://localhost:8090/api/salespeople/';
+        const response = await fetch(url);
         if (response.ok) {
             const data = await response.json();
             setSalespeople(data.salespeople);
         } else {
             console.error(response);
             }
+        const sales_url = 'http://localhost:8090/api/sales';
+        const sales_response = await fetch(sales_url);
+        if (sales_response.ok) {
+            const data = await response.json();
+            setSales(data.sales);
+        }
     }
+
+    useEffect(() => {
+        fetchdata();
+    }, []);
+
     return (
         <>
             <h1>Salesperson History</h1>
@@ -36,7 +48,7 @@ function SalespeopleHistoryList() {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* {sales.map(sale => {
+                    {sales.map(sale => {
                         return (
                             <tr key={sale.id}>
                                 <td>{ sale.salesperson }</td>
@@ -45,7 +57,7 @@ function SalespeopleHistoryList() {
                                 <td>{ sale.price }</td>
                             </tr>
                         );
-                    })} */}
+                    })}
                 </tbody>
             </table>
         </>
