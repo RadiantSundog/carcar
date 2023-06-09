@@ -41,7 +41,7 @@ const cancelClick = async(id) => {
       'Content-Type': 'application/json',
     },
   };
-  const attendeeResponse = await fetch(url, fetchConfig);
+  const cancelResponse = await fetch(url, fetchConfig);
 }
 
 
@@ -54,7 +54,7 @@ const finishClick = async(id) => {
       'Content-Type': 'application/json',
     },
   };
-  const attendeeResponse = await fetch(url, fetchConfig);
+  const finishResponse = await fetch(url, fetchConfig);
 }
 
     return (
