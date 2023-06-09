@@ -51,7 +51,7 @@ def api_show_technician(request, pk):
             )
         except Technician.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
-    else:  # PUT
+    else:
         try:
             content = json.loads(request.body)
             technician = Technician.objects.get(id=pk)
@@ -129,7 +129,7 @@ def api_show_appointment(request, pk):
             )
         except Appointment.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
-    else:  # PUT
+    else:
         try:
             content = json.loads(request.body)
             appointment = Appointment.objects.get(id=pk)

@@ -7,7 +7,7 @@ class AutomobileVOListEncoder(ModelEncoder):
     properties = [
         "vin",
         "sold",
-        ]
+    ]
 
 
 class TechnicianEncoder(ModelEncoder):
