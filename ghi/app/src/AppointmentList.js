@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 
-
-
 function AppointmentList() {
   const [appointments, setAppointments] = useState([])
   useEffect(() => {fetchdata()}, [])
@@ -15,8 +13,6 @@ function AppointmentList() {
           console.error(response);
         }
   }
-
-
     return (
         <>
             <h1>Service Appointments</h1>

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
+
 function AppointmentForm() {
   const [technicians, setTechnicians] = useState([])
-
-  //Notice that we can condense all formData
-  //into one state object
   const [formData, setFormData] = useState({
     vin: '',
     status: '',
@@ -12,9 +10,7 @@ function AppointmentForm() {
     date_time: '',
     technician: '',
     reason: '',
-
   })
-
   const fetchData = async () => {
     const url = 'http://localhost:8080/api/technicians/';
     const response = await fetch(url);
@@ -45,8 +41,6 @@ function AppointmentForm() {
     const appointmentsResponse = await fetch(appointmentsUrl, fetchConfig);
 
     if (appointmentsResponse.ok) {
-      //The single formData object
-      //also allows for easier clearing of data
       setFormData({
         vin: '',
         status: '',
@@ -57,21 +51,12 @@ function AppointmentForm() {
       });
     }
   }
-
-  //Notice that we can also replace multiple form change
-  //eventListener functions with one
   const handleFormChange = (e) => {
     const value = e.target.value;
     const inputName = e.target.name;
 
-    //We can condense our form data event handling
-    //into on function by using the input name to update it
-
     setFormData({
-      //Previous form data is spread (i.e. copied) into our new state object
       ...formData,
-
-      //On top of the that data, we add the currently engaged input key and value
       [inputName]: value
     });
   }
@@ -84,7 +69,6 @@ function AppointmentForm() {
           <form onSubmit={handleSubmit} id="create-conference-form">
 
             <div className="form-floating mb-3">
-              {/* <!-- Now, each field in our form references the same function --> */}
               <input onChange={handleFormChange} placeholder="Vin" required type="text" name="vin" id="vin" className="form-control" />
               <label htmlFor="name">Automobile Vin</label>
             </div>

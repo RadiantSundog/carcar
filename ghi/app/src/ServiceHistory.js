@@ -19,7 +19,6 @@ function ServiceHistoryList() {
           console.error(response);
         }
     }
-
     return (
         <>
             <h1>Service History</h1>
