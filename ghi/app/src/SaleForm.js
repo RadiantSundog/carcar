@@ -112,7 +112,7 @@ function SaleForm() {
               <input onChange={handleFormChange} placeholder="0" required type="text" name="price" id="price" className="form-control" />
               <label htmlFor="price">Price</label>
             </div>
-            <button onClick={(e) => vinSold(autos.auto.id)} className="btn btn-primary">Create</button>
+            <button className="btn btn-primary">Create</button>
           </form>
         </div>
       </div>

@@ -32,7 +32,7 @@ function AutomobileForm() {
         'Content-Type': 'application/json',
       },
     };
-
+    console.log(formData);
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       setFormData({
